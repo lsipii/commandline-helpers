@@ -1,0 +1,31 @@
+{
+  "name": "commandline-helpers",
+  "version": "1.0.0",
+  "description": "Command-line utilities for nodejs apps",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lsipii/commandline-helpers.git"
+  },
+  "keywords": [
+    "typescript",
+    "nodejs",
+    "utils",
+    "commandline"
+  ],
+  "author": "Lassi Piironen <lsipii@kapsi.fi>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lsipii/commandline-helpers/issues"
+  },
+  "homepage": "https://github.com/lsipii/commandline-helpers#readme",
+  "dependencies": {
+    "transformation-helpers": "^1.0.9"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0"
+  }
+}
