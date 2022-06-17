@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "cd scripts && npx ts-node test-logging.ts test",
+    "test": "cd scripts && npx ts-node test-logging.ts 'test case'",
     "lint": "prettier --write 'src/**/*.ts'",
     "clean": "rimraf dist/*",
     "build": "npm run clean && npm run build-with-babel && npm run build-type-declarations",
