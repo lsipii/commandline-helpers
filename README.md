@@ -12,7 +12,7 @@ npm install commandline-helpers
 
 Example:
 
-```
+```TypeScript
 import { Logger } from "commandline-helpers";
 const logger = new Logger()
 
@@ -30,7 +30,7 @@ logger.log(new Error('Test exception'))
 
 Example output:
 
-```
+```bash
 just some text
 {
     "content": "just some data"
