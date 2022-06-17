@@ -2,9 +2,9 @@ import { formatDuration, formatTimeEstimation, getDateNow, getDuration } from "t
 import { getRandomNumber, roundNicely } from "transformation-helpers/Numbers";
 import { ifString } from "transformation-helpers/Strings";
 
-import { clearCurrentLine, logRaw } from "./LogOutput";
+import Logger from "./Logger";
 
-export default class ProgressLogger {
+export default class ProgressLogger extends Logger {
     #progressBar = { max: 0, current: 0, duration: null, startTime: null, lastTime: null, isTouched: false };
     #progressListenerTimeout = null;
 
@@ -31,13 +31,13 @@ export default class ProgressLogger {
             const estDuration = averageDuration * (this.#progressBar.max - this.#progressBar.current);
 
             // Clear current line
-            clearCurrentLine();
+            this.clearCurrentLine();
 
             if (this.#progressBar.current < this.#progressBar.max) {
                 //
                 // Continue progress
                 //
-                logRaw(
+                this.logRaw(
                     `::: [ ${roundNicely((this.#progressBar.current / this.#progressBar.max) * 100, 0)} % → ${this.#progressBar.current} / ${
                         this.#progressBar.max
                     } ] ::: [ Time: ${formatDuration(this.#progressBar.duration)} ] ::: [ ETA: ${formatTimeEstimation(
@@ -51,7 +51,7 @@ export default class ProgressLogger {
                 //
                 this.#stopProgressListener();
 
-                logRaw(`::: [ ${this.#progressBar.max} units ] ::: [ Completed in: ${formatDuration(this.#progressBar.duration)} ]\n`);
+                this.logRaw(`::: [ ${this.#progressBar.max} units ] ::: [ Completed in: ${formatDuration(this.#progressBar.duration)} ]\n`);
                 this.#progressBar.max = 0;
                 this.#progressBar.current = 0;
                 this.#progressBar.duration = 0;
@@ -69,11 +69,11 @@ export default class ProgressLogger {
             this.#startProgressListener();
 
             if (ifString(initialMessage)) {
-                logRaw(`\n::: ${initialMessage}\n`);
+                this.logRaw(`\n::: ${initialMessage}\n`);
             } else {
-                logRaw(`\n`);
+                this.logRaw(`\n`);
             }
-            logRaw(`::: [ ${this.#progressBar.current} / ${this.#progressBar.max} ] :::`);
+            this.logRaw(`::: [ ${this.#progressBar.current} / ${this.#progressBar.max} ] :::`);
         } else {
             throw new Error("No initial max value provided and no on-going progress");
         }
@@ -109,7 +109,7 @@ export default class ProgressLogger {
 
             if (getDuration(this.#progressBar.lastTime, dateNow) > seconds * 1000) {
                 const snackOrGo = getRandomNumber(0, 100) >= 60 ? "🍕" : ".";
-                logRaw(` ${".".repeat(getRandomNumber(0, 4, 1))}${snackOrGo}🐢→ `);
+                this.logRaw(` ${".".repeat(getRandomNumber(0, 4, 1))}${snackOrGo}🐢→ `);
                 this.#progressBar.lastTime = dateNow;
                 this.#progressBar.isTouched = true;
             }

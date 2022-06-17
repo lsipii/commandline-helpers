@@ -1,5 +1,5 @@
-import process = require("process");
-import readline = require("readline");
+const process = require("process");
+const readline = require("readline");
 
 import { getDateNow, getDuration, formatDuration, dateToShortString } from "transformation-helpers/Dates";
 import { ensureString, niceStringifyObject, niceTrim } from "transformation-helpers/Strings";

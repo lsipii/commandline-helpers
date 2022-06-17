@@ -2,9 +2,18 @@
   "name": "commandline-helpers",
   "version": "1.0.0",
   "description": "Command-line utilities for nodejs apps",
+  "type": "module",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "lint": "prettier --write 'src/**/*.ts'",
+    "clean": "rimraf dist/*",
+    "build": "npm run clean && npm run build-with-babel && npm run build-type-declarations",
+    "build-with-babel": "babel ./src --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files --extensions '.ts'",
+    "build-type-declarations": "tsc --declaration --outDir dist/ --emitDeclarationOnly --declarationMap",
+    "make-package": "npm run build && node dist/packageSetup.cjs",
+    "publish-package": "cd dist && npm publish"
   },
   "repository": {
     "type": "git",
@@ -26,6 +35,14 @@
     "transformation-helpers": "^1.0.9"
   },
   "devDependencies": {
-    "@types/node": "^18.0.0"
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "@types/node": "^18.0.0",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.7.3"
   }
 }
