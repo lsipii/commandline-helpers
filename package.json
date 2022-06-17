@@ -11,7 +11,7 @@
     "build": "npm run clean && npm run build-with-babel && npm run build-type-declarations",
     "build-with-babel": "babel ./src --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files --extensions '.ts'",
     "build-type-declarations": "tsc --declaration --outDir dist/ --emitDeclarationOnly --declarationMap",
-    "make-package": "npm run build && node dist/packageSetup.cjs",
+    "make-package": "npm run build && npm test && node dist/packageSetup.cjs",
     "publish-package": "cd dist && npm publish"
   },
   "repository": {
