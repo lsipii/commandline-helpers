@@ -1,6 +1,6 @@
 {
   "name": "commandline-helpers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Command-line utilities for nodejs apps",
   "type": "module",
   "main": "dist/index.js",
@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/lsipii/commandline-helpers#readme",
   "dependencies": {
-    "transformation-helpers": "^1.0.9"
+    "transformation-helpers": "^1.0.10"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
