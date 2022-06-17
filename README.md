@@ -45,10 +45,10 @@ function logprogress() {
     const logger = new ProgressLogger();
     try {
         let total = 20;
-        logger.logProgress(total, "Logging progress");
+        logger.start(total, "Logging progress");
         const action = () => {
             --total;
-            logger.logProgress();
+            logger.update();
             if (total > 0) {
                 setTimeout(
                     () => {

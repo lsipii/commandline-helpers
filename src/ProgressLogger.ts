@@ -9,12 +9,38 @@ export default class ProgressLogger extends Logger {
     #progressListenerTimeout = null;
 
     /**
+     * Stars the progress bar
+     *
+     * @param maxAmount max units of progress, default = 100
+     * @param initialMessage
+     */
+    start(maxAmount: number = 100, initialMessage?: string): void {
+        this.#logProgress(maxAmount, initialMessage);
+    }
+
+    /**
+     * Update current progress
+     *
+     * @param advanceAmout how many units did the job advance, default = 1
+     */
+    update(advanceAmout?: number): void {
+        this.#logProgress(advanceAmout);
+    }
+
+    /**
+     * Stops the progress bar as if reached the initial max
+     */
+    stop(): void {
+        this.#logProgress(this.#progressBar.max);
+    }
+
+    /**
      * Log progress
      *
      * @param maxOrAdvance
      * @param initialMessage
      */
-    logProgress(maxOrAdvance?: number, initialMessage?: string): void {
+    #logProgress(maxOrAdvance?: number, initialMessage?: string): void {
         this.#progressBar.isTouched = false;
         this.#progressBar.lastTime = getDateNow();
 
