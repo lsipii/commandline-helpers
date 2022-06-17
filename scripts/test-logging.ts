@@ -4,23 +4,16 @@ import { Runtime } from "../src/index";
 
 async function testLog() {
     const logger = new Logger();
-    try {
-        logger.log(logger.colourFormatPrettyObsArrowText("Basic log test"));
-        const message = CommandlineUtils.getFirstArgument("Test input");
+    logger.log("just some text");
+    logger.log({ content: "just some data" });
 
-        logger.log("just some text");
-        logger.log({ content: "just some data" });
-        logger.log(new Error("Test exception"));
-        logger.log(["text 1", 123, { value: "key" }, "text 4"]);
+    logger.log("Subject 1", "log input");
+    logger.log("Subject 1", { content: "data" });
+    logger.log("Subject 2", "more log input");
+    logger.log("Subject 2::subtext", "even more log input");
+    logger.log("Subject 1", "back to subject 1");
 
-        logger.log("Subject 1", "log input:", message);
-        logger.log("Subject 1", { content: "data" });
-        logger.log("Subject 1", "log input:", message);
-        logger.log("Subject 2", "more log input");
-        logger.log("Subject 2::subtext", "even more log input");
-    } catch (error) {
-        logger.log(error);
-    }
+    logger.log(new Error("Test exception"));
 }
 
 async function testMoreLog() {
