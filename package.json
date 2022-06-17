@@ -1,7 +1,7 @@
 {
   "name": "commandline-helpers",
-  "version": "1.0.2",
-  "description": "Command-line utilities for nodejs apps",
+  "version": "1.0.3",
+  "description": "A simple command line utilities library for nodejs apps",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
