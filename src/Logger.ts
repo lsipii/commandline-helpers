@@ -33,10 +33,9 @@ export default class Logger {
      * @param subject
      * @param logData
      */
-    log(subject: string, ...logData: any): void {
+    log(...logData: any): void {
         if (this.ifLoggingEnabled()) {
-            const subjectText = this.#parseSubjectText(subject);
-            this.#log(subjectText, ...logData);
+            this.#log(...this.#parseLogData(...logData));
         }
     }
 
@@ -68,9 +67,8 @@ export default class Logger {
      * @param subject
      * @param logData
      */
-    logRawSubject(subject: string, ...logData: any): void {
-        const subjectText = this.#parseSubjectText(subject);
-        this.logRaw(subjectText, ...logData);
+    logRawSubject(...logData: any): void {
+        this.logRaw(...this.#parseLogData(...logData));
     }
 
     /**
@@ -204,29 +202,36 @@ export default class Logger {
      *
      * @param subject
      */
-    #parseSubjectText(subject: string): string {
-        let primarySubject = ensureString(subject, { convert: true });
-        let secondarySubject = "";
-        const parts = primarySubject.split("::");
-        if (parts.length == 2) {
-            primarySubject = parts[0];
-            secondarySubject = parts[1];
-        }
-
-        if (!ifInArray(this.#lastPrimarySubjects, primarySubject)) {
-            this.#lastPrimarySubjects = addToArray(this.#lastPrimarySubjects, primarySubject);
-            primarySubject = this.colourPrimaryLogEventText(primarySubject);
-        } else {
-            if (ifTextAlphaNumeric(primarySubject.charAt(0))) {
-                primarySubject = this.colourSecondaryLogEventText(primarySubject);
+    #parseLogData(...logData: any): Array<any> {
+        const parseSubjectText = (subject: string): string => {
+            let primarySubject = ensureString(subject, { convert: true });
+            let secondarySubject = "";
+            const parts = primarySubject.split("::");
+            if (parts.length == 2) {
+                primarySubject = parts[0];
+                secondarySubject = parts[1];
             }
-        }
 
-        let subjectText = primarySubject;
-        if (secondarySubject) {
-            subjectText = this.colourSubObjectiveText(subjectText, secondarySubject);
+            if (!ifInArray(this.#lastPrimarySubjects, primarySubject)) {
+                this.#lastPrimarySubjects = addToArray(this.#lastPrimarySubjects, primarySubject);
+                primarySubject = this.colourPrimaryLogEventText(primarySubject);
+            } else {
+                if (ifTextAlphaNumeric(primarySubject.charAt(0))) {
+                    primarySubject = this.colourSecondaryLogEventText(primarySubject);
+                }
+            }
+
+            let subjectText = primarySubject;
+            if (secondarySubject) {
+                subjectText = this.colourSubObjectiveText(subjectText, secondarySubject);
+            }
+            return subjectText;
+        };
+
+        if (logData.length > 1 && typeof logData[0] === "string") {
+            logData[0] = parseSubjectText(logData[0]);
         }
-        return subjectText;
+        return logData;
     }
 
     // ------------------------

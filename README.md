@@ -8,62 +8,22 @@ A simple command line utilities library for nodejs apps
 npm install commandline-helpers
 ```
 
-## Examples
-
-Logging:
+## Usage
 
 ```
 import { Logger } from "commandline-helpers";
-import { CommandlineUtils } from "commandline-helpers";
+const logger = new Logger()
 
-function log() {
-    const logger = new Logger();
-    try {
-        const pargs = CommandlineUtils.parseCliArgs();
+logger.log("just some text")
+logger.log({content: "just some data"})
 
-        let message = "Example log output";
-        if (pargs.args.length > 0) {
-            message = pargs.args[0];
-        }
-
-        logger.log("Logger", `${message} 1`);
-        logger.log("Logger", `${message} 2`);
-        logger.log("Logger", `${message} 3`);
-        process.exit();
-    } catch (error) {
-        logger.log(error);
-    }
-}
+logger.log("Subject 1", "log input")
+logger.log("Subject 1", {content: "data"})
+logger.log("Subject 2", "more log input")
+logger.log("Subject 2::subtext", "even more log input")
+logger.log("Subject 1", "back to subject 1")
 ```
 
-Progress logging:
+## Examples
 
-```
-import { ProgressLogger } from "commandline-helpers";
-
-function logprogress() {
-    const logger = new ProgressLogger();
-    try {
-        let total = 20;
-        logger.start(total, "Logging progress");
-        const action = () => {
-            --total;
-            logger.update();
-            if (total > 0) {
-                setTimeout(
-                    () => {
-                        action();
-                    },
-                    total === 7 ? 20000 : 1000
-                );
-            } else {
-                process.exit();
-            }
-        };
-
-        action();
-    } catch (error) {
-        logger.log(error);
-    }
-}
-```
+For basic examples see [./scripts/test-logging.ts](./scripts/test-logging.ts)

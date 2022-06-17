@@ -2,6 +2,21 @@ const process = require("process");
 
 /**
  *
+ * @param fallback
+ * @returns
+ */
+export function getFirstArgument(fallback: string = ""): string {
+    const pargs = parseCliArgs();
+
+    let message = fallback;
+    if (pargs.args.length > 0) {
+        message = pargs.args[0];
+    }
+    return message;
+}
+
+/**
+ *
  * @returns
  */
 export function parseCliArgs(): { flags: Array<string>; args: Array<string> } {
