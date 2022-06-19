@@ -1,6 +1,6 @@
 const process = require("process");
 
-import { getRandomNumber } from "transformation-helpers/Numbers";
+import { getRandomNumber } from "@lsipii/transformation-helpers/Numbers";
 
 /**
  * Ensures a true value
